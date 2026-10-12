@@ -13,6 +13,9 @@ function validateInput(){
     if(input.value.trim() === ""){
         errorMessage.textContent = "Du måste skriva ett sökord";
     }
+    else{
+        
+    }
 
 }
 
