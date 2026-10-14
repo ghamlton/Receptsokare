@@ -10,12 +10,28 @@ const errorMessage = document.querySelector("#error");
 
 function validateInput(){
 
+    errorMessage.innerHTML = "";
+
     if(input.value.trim() === ""){
         errorMessage.textContent = "Du måste skriva ett sökord";
     }
     else{
-        
+        fetchRecipe(input)
     }
+
+}
+
+async function fetchRecipe(input){
+
+    try{
+        const response = await fetch(`https://dummyjson.com/recipes/search?q=${input.value}`);
+        const data = await response.json();
+        console.log(data.recipes[0]);
+    }
+    catch(error){
+
+    }
+    
 
 }
 
