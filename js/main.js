@@ -43,12 +43,14 @@ async function fetchRecipe(input){
     catch(error){
         // En TypeError får man när man inte kan hitta ett recept baserat på ens input, då skrivs detta felmeddelande ut
         if(error.name === "TypeError"){
+            recipeSection.innerHTML = "";
             let message = document.createElement("p");
             message.textContent = `Ett recept med nyckelordet: "${input.value}" finns inte. Vänligen försök igen med ett annat nyckelord.`;
             fetchMessage.appendChild(message);
         }
+        // Detta gäller alla andra errors som kan förekomma, då inkluderas namnet och meddelandet från en error i felmeddelandet
         else{
-            // Detta gäller alla andra errors som kan förekomma, då inkluderas namnet och meddelandet från en error i felmeddelandet
+            recipeSection.innerHTML = "";
             let message = document.createElement("p");
             message.textContent = `Ett fel har uppstått: "${error.name}" med meddelandet: "${error.message}". Vänligen se konsolen för att underlätta felsökning`;
             fetchMessage.appendChild(message);
