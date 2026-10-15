@@ -8,13 +8,15 @@ const form = document.querySelector("#searchform");
 const input = document.querySelector("#search");
 const errorMessage = document.querySelector("#error");
 const recipeSection = document.querySelector("#recipe");
+const fetchMessage = document.querySelector("#message");
 
 function validateInput(){
 
     errorMessage.innerHTML = "";
+    fetchMessage.innerHTML = "";
 
     if(input.value.trim() === ""){
-        errorMessage.textContent = "Du måste skriva ett sökord";
+        errorMessage.textContent = "Du måste skriva ett nyckelord";
     }
     else{
         fetchRecipe(input)
@@ -34,7 +36,16 @@ async function fetchRecipe(input){
         displayRecipe(recipe);
     }
     catch(error){
-
+        if(error.name === "TypeError"){
+            let message = document.createElement("p");
+            message.textContent = `Ett recept med nyckelordet: "${input.value}" finns inte. Vänligen försök igen med ett annat nyckelord.`;
+            fetchMessage.appendChild(message);
+        }
+        else{
+            let message = document.createElement("p");
+            message.textContent = `Ett fel har uppstått: "${error.name}" med meddelandet: "${error.message}". Vänligen se konsolen för att underlätta felsökning`;
+            fetchMessage.appendChild(message);
+        }
     }
     
 
